@@ -133,10 +133,12 @@ void CBank::onHeroVisit(const CGHeroInstance * h) const
 
 void CBank::doVisit(const CGHeroInstance * hero) const
 {
+	logGlobal->error("CBank::doVisit");
 	int textID = -1;
 	InfoWindow iw;
 	iw.player = hero->getOwner();
 	MetaString loot;
+
 
 	if (bc)
 	{
@@ -304,10 +306,27 @@ void CBank::doVisit(const CGHeroInstance * hero) const
 		iw.text.clear();
 
 		//grant creatures
+
+	    const CArmedInstance * hArmy = static_cast<const CArmedInstance*>(hero);
+        const int stCount = GameConstants::ARMY_SIZE - hArmy->stacksCount();
+		PlayerColor thePlayer = hero->getOwner();
+        PlayerState* pinfo = cb->gameState()->getPlayerState(thePlayer, false);
+
+		logGlobal->error("HP: " +  boost::lexical_cast<std::string>(pinfo->human));		
+
+        TQuantity orgCount = 0;
 		CCreatureSet ourArmy;
-		for (auto slot : bc->creatures)
+		for (auto & slot : bc->creatures)
 		{
+			orgCount = slot.count;
+			logGlobal->error("SLOT COUNT: " +  boost::lexical_cast<std::string>(slot.count));
+            if(pinfo->human && slot.count > 0)
+			{
+			    slot.count = slot.count > stCount ? stCount : slot.count;
+			}			
 			ourArmy.addToSlot(ourArmy.getSlotFor(slot.type->idNumber), slot.type->idNumber, slot.count);
+            slot.count = orgCount - slot.count;
+			orgCount = slot.count;
 		}
 
 		for (auto & elem : ourArmy.Slots())
@@ -329,7 +348,10 @@ void CBank::doVisit(const CGHeroInstance * hero) const
 			cb->showInfoDialog(&iw);
 			cb->giveCreatures(this, hero, ourArmy, false);
 		}
-		cb->setObjProperty(id, ObjProperty::BANK_CLEAR, 0); //bc = nullptr
+		if(orgCount < 1)
+		{
+		    cb->setObjProperty(id, ObjProperty::BANK_CLEAR, 1); //bc = nullptr
+		}		
 	}
 }
 

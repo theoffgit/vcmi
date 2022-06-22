@@ -161,6 +161,7 @@ bool RecruitCreatures::applyGh(CGameHandler * gh)
 	return gh->recruitCreatures(tid, dst, crid, amount, level);
 }
 
+
 bool UpgradeCreature::applyGh(CGameHandler * gh)
 {
 	throwOnWrongOwner(gh, id);

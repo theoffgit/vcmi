@@ -73,6 +73,8 @@ void CCallback::recruitCreatures(const CGDwelling * obj, const CArmedInstance * 
 	sendRequest(&pack);
 }
 
+
+
 bool CCallback::dismissCreature(const CArmedInstance *obj, SlotID stackPos)
 {
 	if((player && obj->tempOwner != player) || (obj->stacksCount()<2  && obj->needsLastStack()))

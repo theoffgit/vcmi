@@ -11,6 +11,7 @@
 
 #include "CObjectHandler.h"
 #include "CArmedInstance.h"
+#include "../CPlayerState.h"
 
 struct BankConfig;
 class CBankInstanceConstructor;
