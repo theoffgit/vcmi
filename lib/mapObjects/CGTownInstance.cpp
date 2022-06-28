@@ -325,6 +325,7 @@ void CGDwelling::updateGuards() const
 
 void CGDwelling::heroAcceptsCreatures( const CGHeroInstance *h) const
 {
+	logGlobal->error("CGDwelling::heroAcceptsCreatures");
 	CreatureID crid = creatures[0].second[0];
 	CCreature *crs = VLC->creh->objects[crid];
 	TQuantity count = creatures[0].first;

@@ -1,4 +1,4 @@
-﻿/*
+/*
  * CBank.h, part of VCMI engine
  *
  * Authors: listed in file AUTHORS in main folder
@@ -11,7 +11,6 @@
 
 #include "CObjectHandler.h"
 #include "CArmedInstance.h"
-#include "../CPlayerState.h"
 
 struct BankConfig;
 class CBankInstanceConstructor;

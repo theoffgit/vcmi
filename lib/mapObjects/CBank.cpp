@@ -1,4 +1,4 @@
-﻿/*
+/*
  * CBank.cpp, part of VCMI engine
  *
  * Authors: listed in file AUTHORS in main folder
@@ -20,6 +20,7 @@
 #include "CommonConstructors.h"
 #include "../IGameCallback.h"
 #include "../CGameState.h"
+#include "../CPlayerState.h"
 
 ///helpers
 static std::string & visitedTxt(const bool visited)

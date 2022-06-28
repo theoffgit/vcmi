@@ -110,6 +110,7 @@ void CRecruitmentWindow::CCreatureCard::showAll(SDL_Surface * to)
 
 void CRecruitmentWindow::select(std::shared_ptr<CCreatureCard> card)
 {
+	logGlobal->error("CRecruitmentWindow::select");
 	if(card == selected)
 		return;
 
@@ -151,6 +152,7 @@ void CRecruitmentWindow::select(std::shared_ptr<CCreatureCard> card)
 
 void CRecruitmentWindow::buy()
 {
+	logGlobal->error("CRecruitmentWindow::buy");
 	CreatureID crid =  selected->creature->idNumber;
 	SlotID dstslot = dst-> getSlotFor(crid);
 
@@ -303,6 +305,7 @@ void CRecruitmentWindow::availableCreaturesChanged()
 
 void CRecruitmentWindow::sliderMoved(int to)
 {
+	logGlobal->error("CRecruitmentWindow::sliderMoved");
 	if(!selected)
 		return;
 
