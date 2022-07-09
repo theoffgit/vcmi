@@ -6527,7 +6527,7 @@ bool CGameHandler::moveStack(const StackLocation &src, const StackLocation &dst,
 	//PlayerColor thePlayer = gs->currentPlayer;
 	//const PlayerState * pinfo = getPlayerState(thePlayer, false);
 
-    const CArmedInstance *Army = dst.army;    
+    const CArmedInstance *Army = dst.army;
     auto hero = dynamic_ptr_cast<CGHeroInstance> (Army);
 	
 	if(hero)
@@ -6580,6 +6580,7 @@ bool CGameHandler::moveStack(const StackLocation &src, const StackLocation &dst,
 
 bool CGameHandler::swapStacks(const StackLocation & sl1, const StackLocation & sl2)
 {
+	logGlobal->error("CGameHandler::swapStacks");
 	if(!sl1.army->hasStackAtSlot(sl1.slot))
 	{
 		return moveStack(sl2, sl1);
@@ -6590,6 +6591,19 @@ bool CGameHandler::swapStacks(const StackLocation & sl1, const StackLocation & s
 	}
 	else
 	{
+
+        const CArmedInstance *Army = sl1.army; 
+        auto hero = dynamic_ptr_cast<CGHeroInstance> (Army);
+
+		const CArmedInstance *Army1 = sl2.army;
+		auto hero1 = dynamic_ptr_cast<CGHeroInstance> (Army1);
+
+		if((hero || hero1) && (sl1.army->getStackCount(sl1.slot) > 1 || sl2.army->getStackCount(sl2.slot)))
+		{
+			logGlobal->error("No fucking way!!!");
+			return false;
+		}
+
 		SwapStacks ss;
 		ss.srcArmy = sl1.army->id;
 		ss.dstArmy = sl2.army->id;
