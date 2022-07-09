@@ -283,12 +283,15 @@ struct SetMana : public CPackForClient
 	ObjectInstanceID hid;
 	si32 val;
 	bool absolute;
+	bool firstCast;
+
 
 	template <typename Handler> void serialize(Handler &h, const int version)
 	{
 		h & val;
 		h & hid;
 		h & absolute;
+		h & firstCast;
 	}
 };
 
@@ -1108,7 +1111,7 @@ namespace ObjProperty
 		BONUS_VALUE_FIRST, BONUS_VALUE_SECOND, //used in Rampart for special building that generates resources (storing resource type and quantity)
 
 		//creature-bank specific
-		BANK_DAYCOUNTER, BANK_RESET, BANK_CLEAR,
+		BANK_DAYCOUNTER, BANK_RESET, BANK_CLEAR, BANK_STACKSIZE,
 
 		//object with reward
 		REWARD_RESET, REWARD_SELECT

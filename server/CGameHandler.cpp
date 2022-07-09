@@ -2229,6 +2229,12 @@ std::list<PlayerColor> CGameHandler::generatePlayerTurnOrder() const
 
 void CGameHandler::setupBattle(int3 tile, const CArmedInstance *armies[2], const CGHeroInstance *heroes[2], bool creatureBank, const CGTownInstance *town)
 {
+	logGlobal->error("CGameHandler::setupBattle");
+	if (creatureBank)
+	{
+		logGlobal->error("creatureBank");
+	}
+	
 	battleResult.set(nullptr);
 
 	const auto t = getTile(tile);
@@ -2720,8 +2726,31 @@ void CGameHandler::startBattlePrimary(const CArmedInstance *army1, const CArmedI
 								const CGHeroInstance *hero1, const CGHeroInstance *hero2, bool creatureBank,
 								const CGTownInstance *town) //use hero=nullptr for no hero
 {
+	logGlobal->error("CGameHandler::startBattlePrimary");
 	engageIntoBattle(army1->tempOwner);
 	engageIntoBattle(army2->tempOwner);
+
+    if(hero1)
+	{
+        SetMana sm;
+	    sm.absolute = false;
+	    sm.hid = hero1->id;
+	    sm.val = 0;
+	    sm.firstCast = true;	
+
+	    sendAndApply(&sm);
+	}
+
+    if(hero2)
+	{
+        SetMana sm1;
+	    sm1.absolute = false;
+	    sm1.hid = hero2->id;
+	    sm1.val = 0;
+	    sm1.firstCast = true;
+
+	    sendAndApply(&sm1);
+	}
 
 	static const CArmedInstance *armies[2];
 	armies[0] = army1;
