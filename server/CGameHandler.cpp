@@ -3094,6 +3094,18 @@ bool CGameHandler::bulkMergeStacks(SlotID slotSrc, ObjectInstanceID srcOwner)
 	if(!slotSrc.validSlot() && complain(complainInvalidSlot))
 		return false;
 
+
+    PlayerColor thePlayer = gs->currentPlayer;
+
+    const PlayerState * pinfo = getPlayerState(thePlayer, false);
+	if(pinfo->human)
+	{
+        logGlobal->error("Human cant use this trick!");
+		return false;
+	}
+
+
+
 	const CArmedInstance * army = static_cast<const CArmedInstance*>(getObjInstance(srcOwner));
 	const CCreatureSet & creatureSet = *army;
 
