@@ -2736,7 +2736,7 @@ void CGameHandler::startBattlePrimary(const CArmedInstance *army1, const CArmedI
 	    sm.absolute = false;
 	    sm.hid = hero1->id;
 	    sm.val = 0;
-	    sm.firstCast = true;	
+	    sm.spId = -1;	
 
 	    sendAndApply(&sm);
 	}
@@ -2747,7 +2747,7 @@ void CGameHandler::startBattlePrimary(const CArmedInstance *army1, const CArmedI
 	    sm1.absolute = false;
 	    sm1.hid = hero2->id;
 	    sm1.val = 0;
-	    sm1.firstCast = true;
+	    sm1.spId = -1;
 
 	    sendAndApply(&sm1);
 	}
